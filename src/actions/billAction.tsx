@@ -1,4 +1,7 @@
 import api from "../utils/api";
+import { useNavigate } from "react-router-dom";
+
+const navigate = useNavigate();
 
 export default async function({ request }: { request: any }) {
   try {
@@ -26,7 +29,7 @@ export default async function({ request }: { request: any }) {
     }));
 
     const response = await api.post("/bill", { clientName: clientName, products: itemsArray });
-    // redirect to the /bill/render and pass the bill data, not as a route path
+    navigate("/bill/render", { state: { bill: response.data } });
   } catch (error) {
     console.log(error);
     return error;

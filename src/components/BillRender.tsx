@@ -1,8 +1,10 @@
-import { useLoaderData } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
 
 export default function(){
-  const { bill } : any = useLoaderData();
+  const location = useLocation();
+  const bill = location.state.bill;
+  console.log(bill);
 
   useEffect(() => {
     const billDiv = document.getElementById("bill");

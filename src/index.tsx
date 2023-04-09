@@ -15,7 +15,6 @@ import BillRender from './components/BillRender';
 
 import itemListLoader from './loaders/itemListLoader';
 import itemLoader from './loaders/itemLoader';
-import billLoader from './loaders/billLoader';
 
 import createAction from './actions/createAction';
 import deleteAction from './actions/deleteAction';
@@ -69,7 +68,6 @@ const router = createBrowserRouter([
           {
             path: 'bill/render',
             element: <BillRender />,
-            loader: billLoader,
           },
         ]
       },
