@@ -1,5 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import './index.css';
+
 import {
   createBrowserRouter,
   RouterProvider,
@@ -7,6 +9,7 @@ import {
 
 import Root from './components/Root';
 import ErrorPage from './utils/ErrorPage';
+import HomeIndex from './components/HomeIndex';
 import ItemList from './components/ItemList';
 import Item from './components/Item';
 import EditItem from './components/EditItem';
@@ -27,52 +30,60 @@ const root = ReactDOM.createRoot(
 
 const router = createBrowserRouter([
   {
-    path: '/',
-    element: <Root />,
     errorElement: <ErrorPage />,
     children: [
       {
-        // pathless route for catching the children's errors in the Root outlet
-        errorElement: <ErrorPage />,
+        path: '/',
+        element: <Root />,
         children: [
           {
-            path: 'items',
-            element: <ItemList />,
-            loader: itemListLoader,
-          }, 
-          {
-            path: 'item/new',
-            action: createAction,
-          },
-          {
-            path: 'item/:itemId',
-            element: <Item />,
-            loader: itemLoader,
-          },
-          {
-            path: 'item/:itemId/delete',
-            action: deleteAction,
-          },
-          {
-            path: 'item/:itemId/edit',
-            element: <EditItem />,
-            action: editAction,
-            loader: itemLoader,
-          },
-          {
-            path: 'billing',
-            element: <BillForm />,
-            loader: itemListLoader,
-            action: billAction,
-          },
-          {
-            path: 'bill/render',
-            element: <BillRender />,
+            // pathless route for catching the children's errors in the Root outlet
+            errorElement: <ErrorPage />,
+            children: [
+              {
+                index: true,
+                element: <HomeIndex />,
+              },
+              {
+                path: 'items',
+                element: <ItemList />,
+                loader: itemListLoader,
+              }, 
+              {
+                path: 'item/new',
+                action: createAction,
+              },
+              {
+                path: 'item/:itemId',
+                element: <Item />,
+                loader: itemLoader,
+              },
+              {
+                path: 'item/:itemId/delete',
+                action: deleteAction,
+              },
+              {
+                path: 'item/:itemId/edit',
+                element: <EditItem />,
+                action: editAction,
+                loader: itemLoader,
+              },
+              {
+                path: 'billing',
+                element: <BillForm />,
+                loader: itemListLoader,
+                action: billAction,
+              },
+            ]
           },
         ]
       },
+      {
+        path: 'bill/render',
+        element: <BillRender />,
+      },
     ]
-  }
+  },
 ]);
 
 root.render(

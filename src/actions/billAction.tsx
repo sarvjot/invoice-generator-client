@@ -1,9 +1,7 @@
 import api from "../utils/api";
-import { useNavigate } from "react-router-dom";
+import { redirect } from "react-router-dom";
 
-const navigate = useNavigate();
-
-export default async function({ request }: { request: any }) {
+export default async function billAction({ request }: { request: any }) {
   try {
     const formData = await request.formData();
     const data : { [key: string]: string } = Object.fromEntries(formData);
@@ -29,7 +27,8 @@ export default async function({ request }: { request: any }) {
     }));
 
     const response = await api.post("/bill", { clientName: clientName, products: itemsArray });
-    navigate("/bill/render", { state: { bill: response.data } });
+    localStorage.setItem("bill", response.data);
+    return redirect("/bill/render");
   } catch (error) {
     console.log(error);
     return error;

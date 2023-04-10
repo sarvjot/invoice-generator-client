@@ -1,17 +1,13 @@
-import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
 
-export default function(){
-  const location = useLocation();
-  const bill = location.state.bill;
-  console.log(bill);
-
+export default function BillRender(){
   useEffect(() => {
+    const bill = localStorage.getItem("bill");
     const billDiv = document.getElementById("bill");
-    if (billDiv) {
+    if (bill && billDiv) {
       billDiv.innerHTML = bill;
     }
-  }, [bill]);
+  }, []);
 
   return (
     <div id="bill">
